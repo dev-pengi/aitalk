@@ -2,6 +2,7 @@
 
 import { FC } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+import axios from "axios";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -11,6 +12,8 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 interface Props {}
 
 const MyComponent: FC<Props> = () => {
+  const handleGenerate = () => {};
+
   return (
     <div className="flex items-center rounded-[7px] shadow-sm overflow-auto justify-center w-[93%] max-w-[800px] max-h-96 px-5 pr-1 py-4 bg-dark3 fixed bottom-5 right-0 left-0 m-auto">
       <TextareaAutosize
