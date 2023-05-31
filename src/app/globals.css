@@ -1,27 +1,81 @@
+@import url("https://fonts.googleapis.com/css?family=Baloo+Paaji|Open+Sans:300,300i,400,400i,600,600i,700,700i");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  text-decoration: none;
+  list-style: none;
+  outline: none;
+  border: none;
+  font-family: "Open Sans", "Ubuntu";
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.no-drag {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+a {
+  color: currentColor;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #191919;
+  color: #f1f1f1;
+  overflow-x: hidden;
+}
+
+* {
+  /* border: red solid 1px; */
+}
+
+main {
+  margin-top: 3.5rem;
+}
+
+.scr::-webkit-scrollbar {
+  width: 3px;
+}
+
+.scr::-webkit-scrollbar-track {
+  background: #232323;
+}
+
+.scr::-webkit-scrollbar-thumb {
+  background: #555;
+  cursor: default;
+}
+
+.scr::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
