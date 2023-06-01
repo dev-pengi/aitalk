@@ -9,32 +9,38 @@ import {
   SetStateAction,
 } from "react";
 
-interface ContextType {
-  messages: string[];
-  sendMessage: (message: string) => void;
+export type messageType = {
+  message: string;
+  author: string;
+  error?: boolean;
+};
+export type ChatContextType = {
+  messages: messageType[];
+  sendMessage: (message: messageType) => boolean;
   generating: boolean;
   setGenerating: Dispatch<SetStateAction<boolean>>;
-}
+};
 
-const ChatContext = createContext<ContextType | undefined>(undefined);
+const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
-interface ChatContextProviderProps {
+type ChatContextProviderProps = {
   children: ReactNode;
-}
+};
 
 export const ChatContextProvider: FC<ChatContextProviderProps> = ({
   children,
 }) => {
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<messageType[]>([]);
   const [generating, setGenerating] = useState<boolean>(false);
 
-  const sendMessage = (message: string) => {
-    setMessages([...messages, message]);
+  const sendMessage = (message: messageType) => {
+    setMessages((prevMessages) => [...prevMessages, message]);
+    return true;
   };
 
   return (
     <ChatContext.Provider
-      value={{ messages, sendMessage, generating, setGenerating }}
+      value={{ generating, setGenerating, messages, sendMessage }}
     >
       {children}
     </ChatContext.Provider>
