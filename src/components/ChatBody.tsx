@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect, useRef } from "react";
 
 import InitContent from "./InitContent";
 import { MessageInput } from ".";
@@ -13,13 +13,21 @@ import Image from "next/image";
 
 interface Props {}
 
-const MyComponent: FC<Props> = () => {
-  const { generating, messages } = useContext(ChatContext) as ChatContextType;
-
+const ChatBody: FC<Props> = () => {
+  const messagesRef: any = useRef(null);
+  const { messages } = useContext(ChatContext) as ChatContextType;
+  useEffect(() => {
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
+  }, [messages]);
   const ShowMessage: FC = () => {
     return (
       <div className="flex flex-col items-center justify-start">
-        <div className="max-w-[800px] w-full flex flex-col items-start">
+        <div
+          className="max-w-[800px] w-full flex flex-col items-start mb-24"
+          ref={messagesRef}
+        >
           {messages.map((message: messageType) => {
             const system: boolean = message.author == "system";
             return (
@@ -45,13 +53,12 @@ const MyComponent: FC<Props> = () => {
       </div>
     );
   };
-
   return (
-    <div className="h-screen max-w-screen pb-10">
+    <div className="h-screen">
       {messages.length ? <ShowMessage /> : <InitContent />}
       <MessageInput />
     </div>
   );
 };
 
-export default MyComponent;
+export default ChatBody;

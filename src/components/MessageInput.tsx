@@ -1,6 +1,13 @@
 "use client";
 
-import { FC, useContext, useState, ChangeEventHandler } from "react";
+import {
+  FC,
+  useContext,
+  useState,
+  ChangeEventHandler,
+  useEffect,
+  useRef,
+} from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import axios from "axios";
 
@@ -19,11 +26,14 @@ interface Props {}
 
 const MyComponent: FC<Props> = () => {
   const [message, setMessage] = useState("");
+  const inputRef: any = useRef(null);
 
-  const { sendMessage, generating, setGenerating } = useContext(
+  const { sendMessage, messages, generating, setGenerating } = useContext(
     ChatContext
   ) as ChatContextType;
-
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [messages]);
   const handleGenerate = async () => {
     if (!message.trim().length) return;
     try {
@@ -68,31 +78,36 @@ const MyComponent: FC<Props> = () => {
   };
 
   return (
-    <div className="flex items-center rounded-[7px] shadow-sm overflow-auto justify-center w-[93%] max-w-[800px] max-h-96 px-5 pr-1 py-4 bg-dark3 fixed bottom-5 right-0 left-0 m-auto">
-      <TextareaAutosize
-        className="bg-transparent scr resize-none max-h-[22rem] pr-8 overflow-auto overflow-x-hidden w-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-300"
-        placeholder="Type your promot here"
-        autoFocus
-        value={message}
-        onChange={handleTextareaChange}
-      />
-      {generating ? (
-        <FontAwesomeIcon
-          icon={faSpinner}
-          className="fa-spin-pulse absolute h-max w-max right-4 bottom-[19px] text-lg cursor-not-allowed duration-300"
-          onClick={handleGenerate}
+    <div
+      className="fixed bottom-0 h-16 w-full bg-dark"
+      style={{ boxShadow: "box-shadow: 0px -10px 20px 10px #ff0000" }}
+    >
+      <div className="flex items-center rounded-[7px] shadow-sm overflow-auto justify-center w-[93%] max-w-[800px] max-h-96 px-5 pr-1 py-4 bg-dark3 fixed bottom-5 right-0 left-0 m-auto">
+        <TextareaAutosize
+          className="bg-transparent scr resize-none max-h-[22rem] pr-8 overflow-auto overflow-x-hidden w-full scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-300"
+          placeholder="Type your promot here"
+          autoFocus
+          ref={inputRef}
+          value={message}
+          onChange={handleTextareaChange}
         />
-      ) : (
-        <FontAwesomeIcon
-          icon={faPaperPlane}
-          className={`absolute h-max w-max right-4 bottom-[19px] text-lg ${
-            message.trim().length
-              ? "cursor-pointer hover:text-primary"
-              : "cursor-not-allowed"
-          } duration-300`}
-          onClick={handleGenerate}
-        />
-      )}
+        {generating ? (
+          <FontAwesomeIcon
+            icon={faSpinner}
+            className="fa-spin-pulse absolute h-max w-max right-4 bottom-[19px] text-lg cursor-not-allowed duration-300"
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={faPaperPlane}
+            className={`absolute h-max w-max right-4 bottom-[19px] text-lg ${
+              message.trim().length
+                ? "cursor-pointer hover:text-primary"
+                : "cursor-not-allowed"
+            } duration-300`}
+            onClick={handleGenerate}
+          />
+        )}
+      </div>
     </div>
   );
 };
