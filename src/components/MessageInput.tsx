@@ -79,7 +79,7 @@ const MyComponent: FC<Props> = () => {
 
   return (
     <div
-      className="fixed bottom-0 h-16 w-full bg-dark"
+      className="fixed -bottom-3 h-16 w-full bg-dark"
       style={{ boxShadow: "box-shadow: 0px -10px 20px 10px #ff0000" }}
     >
       <div className="flex items-center rounded-[7px] shadow-sm overflow-auto justify-center w-[93%] max-w-[800px] max-h-96 px-5 pr-1 py-4 bg-dark3 fixed bottom-5 right-0 left-0 m-auto">

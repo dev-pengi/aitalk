@@ -17,6 +17,15 @@
   font-family: "Open Sans", "Ubuntu";
 }
 
+:root {
+  --dark: #191919;
+  --dark2: #232323;
+  --dark3: #303030;
+  --textcolor: #f8f8f8;
+  --textcolorLighter: #b8b8b8;
+  --primary: #5a7de6;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -95,4 +104,76 @@ main {
 
 .scr::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.message code {
+  color: #fff;
+  background-color: var(--dark3);
+  padding: 1px 2px;
+  border-radius: 5px;
+}
+
+.message pre code {
+  padding: 0;
+  background-color: none;
+}
+
+.message pre {
+  border-radius: 3px;
+  background-color: var(--dark3) !important;
+  padding: 12px 16px;
+  margin: 12px 0px;
+  width: 100% !important;
+}
+
+.message h1 {
+  font-size: 2rem;
+}
+
+.message h2 {
+  font-size: 1.5rem;
+}
+
+.message h3 {
+  font-size: 1.17rem;
+}
+
+.message h4 {
+  font-size: 1rem;
+}
+
+.message h5 {
+  font-size: 0.83rem;
+}
+
+.message h6 {
+  font-size: 0.67rem;
+}
+
+.message ul,
+.message ol {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 8px 0;
+}
+
+.message ul li {
+  list-style: inside;
+}
+
+.message ol li {
+  list-style: decimal;
+}
+
+.message a {
+  color: var(--primary) !important;
+  text-decoration: underline;
+}
+
+.message img {
+  width: 50%;
+  min-width: 300px;
+  border-radius: 6px;
+  margin: 10px 0;
 }

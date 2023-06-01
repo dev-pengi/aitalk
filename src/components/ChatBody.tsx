@@ -10,6 +10,7 @@ import ChatContext, {
 } from "../contexts/ChatContext";
 import logo from "../../public/logo.png";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
 
 interface Props {}
 
@@ -21,13 +22,11 @@ const ChatBody: FC<Props> = () => {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
   }, [messages]);
+
   const ShowMessage: FC = () => {
     return (
       <div className="flex flex-col items-center justify-start">
-        <div
-          className="max-w-[800px] w-full flex flex-col items-start mb-24"
-          ref={messagesRef}
-        >
+        <div className="max-w-[800px] w-full flex flex-col items-start mb-24">
           {messages.map((message: messageType, index: number) => {
             const system: boolean = message.author == "system";
             return (
@@ -44,8 +43,22 @@ const ChatBody: FC<Props> = () => {
                 {system && !message.error && (
                   <Image src={logo} alt="system logo" className="w-6 mr-2" />
                 )}
-                <p className={`${message.error ? "text-red-600" : ""}`}>
-                  {message.message}
+                <p
+                  className={`${
+                    system ? "flex flex-col gap-40" : "whitespace-pre-wrap break-words"
+                  }`}
+                >
+                  {system ? (
+                    <ReactMarkdown
+                      className={`message ${
+                        message.error ? "text-red-600 flex flex-col" : ""
+                      }`}
+                    >
+                      {message.message}
+                    </ReactMarkdown>
+                  ) : (
+                    message.message
+                  )}
                 </p>
               </div>
             );
@@ -55,7 +68,7 @@ const ChatBody: FC<Props> = () => {
     );
   };
   return (
-    <div className="h-screen">
+    <div ref={messagesRef} className="h-screen">
       {messages.length ? <ShowMessage /> : <InitContent />}
       <MessageInput />
     </div>
