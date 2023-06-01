@@ -28,10 +28,11 @@ const ChatBody: FC<Props> = () => {
           className="max-w-[800px] w-full flex flex-col items-start mb-24"
           ref={messagesRef}
         >
-          {messages.map((message: messageType) => {
+          {messages.map((message: messageType, index: number) => {
             const system: boolean = message.author == "system";
             return (
               <div
+                key={index}
                 className={`${
                   system
                     ? `${
